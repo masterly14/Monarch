@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100vh;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 
+R (0)
+G (110)
+B (255 */
+
+@layer base {
+  :root {
+    --gradient: #141E30;
+    --background: 232 97.05% 98.26%;
+    --foreground: 232 4.1% 0.52%;
+
+    --muted: 232 4.1% 91.3%;
+    --muted-foreground: 232 2.05% 41.3%;
+
+    --popover: 232 57.2% 91.3%;
+    --popover-foreground: 232 4.1% 0.65%;
+
+    --card: 232 57.2% 91.3%;
+    --card-foreground: 232 4.1% 0.65%;
+
+    --border: 232 9.1% 89.52%;
+    --input: 232 9.1% 89.52%;
+
+    --primary: 232 41% 13%;
+    --primary-foreground: 232 0.82% 91.3%;
+
+    --secondary: 232 2.05% 95.65%;
+    --secondary-foreground: 232 3.46% 11.3%;
+
+    --accent: 232 2.05% 95.65%;
+    --accent-foreground: 232 3.46% 11.3%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --ring: 232 41% 13%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Name: custom color palette
+       Author: Ilias Ism
+       URL: https://gradient.page */
+
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: linear-gradient(to top left,#2980b9,#2c3e50);
+
+    --background: 216 41.6% 3.52%;
+    --foreground: 216 6.4% 97.2%;
+
+    --muted: 216 32% 13.2%;
+    --muted-foreground: 216 6.4% 54.4%;
+
+    --popover: 216 52.2% 5.72%;
+    --popover-foreground: 216 6.4% 97.2%;
+
+    --card: 216 52.2% 5.72%;
+    --card-foreground: 216 6.4% 97.2%;
+
+    --border: 216 32% 13.2%;
+    --input: 216 32% 13.2%;
+
+    --primary: 216 64% 44%;
+    --primary-foreground: 216 6.4% 97.2%;
+
+    --secondary: 216 32% 13.2%;
+    --secondary-foreground: 216 6.4% 97.2%;
+
+    --accent: 216 32% 13.2%;
+    --accent-foreground: 216 6.4% 97.2%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 216 6.4% 97.2%;
+
+    --ring: 216 64% 44%;
+    
+  
+  }
+}
+
+@layer base {
+  * { 
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+.dotPattern {
+  background-image: radial-gradient(rgb(35, 40, 68) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.use-automation-zoom-in {
+  animation: automation-zoom-in 0.5s;
+}
+
+@keyframes automation-zoom-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

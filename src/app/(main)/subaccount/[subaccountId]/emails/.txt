@@ -1,0 +1,73 @@
+'use client'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import BlurPage from '@/components/global/blur-page';
+import { Button } from '@/components/ui/button';
+
+const clientId = '377853556890-qu0neigej7dvcqiposkoeog0sh9djje2.apps.googleusercontent.com';
+const clientSecret = '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';
+const redirectUri = 'http://localhost:3000'; // Tu callback URL
+const authUrl = 'https://accounts.google.com/o/oauth2/auth';
+const tokenUrl = 'https://oauth2.googleapis.com/token';
+
+const App = () => {
+  const [authorizationCode, setAuthorizationCode] = useState('');
+  const [isAuthenticated, setAuthenticated] = useState(false)
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+      setAuthorizationCode(code);
+      exchangeAuthorizationCode(code);
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      setAuthenticated(true);
+    }
+  }, []);
+
+    
+
+  const handleAuthorization = () => {
+    const authorizeUrl = `${authUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=https://mail.google.com/`;
+    window.location.href = authorizeUrl;
+  };
+
+  const exchangeAuthorizationCode = (code: string) => {
+    const data = {
+      code: code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUri,
+      grant_type: 'authorization_code',
+    };
+
+    axios.post(tokenUrl, null, { params: data })
+      .then(response => {
+        const accessToken = response.data.access_token;
+        console.log('Token de acceso obtenido:', accessToken);
+        setAuthenticated(true)
+        localStorage.setItem('accessToken', accessToken)
+        })
+      .catch(error => {
+        console.error('Error al obtener el token de acceso:', error.message);
+      });
+  };
+
+  return (
+    <BlurPage>
+    <div>
+      {!isAuthenticated && (
+        <Button onClick={handleAuthorization}>Autorizar con Gmail</Button>
+      )} {isAuthenticated && (
+        <p>Gmail Registrado</p>
+      )}
+      
+    </div>
+    </BlurPage>
+  );
+};
+
+export default App;
